@@ -125,6 +125,17 @@ public sealed class LedgerService(
                 new { txId = transactionId, toId = request.ToAccountId, amount = request.Amount },
                 tx);
 
+            // 2e. Update the cached balances on the accounts table
+            await connection.ExecuteAsync(
+                "UPDATE accounts SET balance = balance - @amount, updated_at = NOW() WHERE id = @fromId",
+                new { amount = request.Amount, fromId = request.FromAccountId },
+                tx);
+
+            await connection.ExecuteAsync(
+                "UPDATE accounts SET balance = balance + @amount, updated_at = NOW() WHERE id = @toId",
+                new { amount = request.Amount, toId = request.ToAccountId },
+                tx);
+
             await tx.CommitAsync(ct);
 
             // ---- 3. AUDIT: non-blocking, and AFTER the commit. ----
