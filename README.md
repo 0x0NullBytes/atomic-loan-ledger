@@ -58,7 +58,7 @@ Separation of Concerns: The ledger is the absolute source of truth; the audit st
 
 ## Prerequisites
 
-[.NET SDK (Latest version)](https://dotnet.microsoft.com/en-us/download)
+[.NET SDK (NET 9.0)](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
 
 [Docker Desktop (For running PostgreSQL locally)](https://www.docker.com/products/docker-desktop/)
 
