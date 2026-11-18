@@ -172,7 +172,7 @@ public sealed class LedgerService(
             LedgerTransactionDto? winner;
             using (var freshConnection = new NpgsqlConnection(_connectionString))
             {
-                await freshConnection.OpenAsync();
+                await freshConnection.OpenAsync(ct);
                 winner = await freshConnection.QueryFirstOrDefaultAsync<LedgerTransactionDto>(
                     """
                 SELECT id, from_account_id, to_account_id, amount, purpose
